@@ -1,0 +1,139 @@
+﻿<Layout:DXPage
+    x:Class="WhatsThatSound.View.PlayScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:WhatsThatSound.Controls"
+    xmlns:toolkit="using:WinRTXamlToolkit.Controls"
+    xmlns:view="using:WhatsThatSound.View"
+    xmlns:ViewModel="using:WhatsThatSound.ViewModel"
+    mc:Ignorable="d"
+    xmlns:Layout="using:DevExpress.UI.Xaml.Layout"
+    xmlns:Editors="using:DevExpress.UI.Xaml.Editors"
+    xmlns:Grid="using:DevExpress.UI.Xaml.Grid">
+    <Page.DataContext>
+        <ViewModel:ActivitiesPageViewModel/>
+    </Page.DataContext>
+    
+    <Layout:PageAdornerControl Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Header="Single Player">
+        <Layout:LayoutAwareDecorator >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,-90,10,10" HorizontalAlignment="Right">
+                <TextBlock Foreground="WhiteSmoke" FontSize="40" Text="Score:"></TextBlock>
+                <TextBlock Foreground="WhiteSmoke" FontSize="40" Margin="10,0,0,0" Text="0" x:Name="txtScore"></TextBlock>
+            </StackPanel>
+
+            <!--<controls:CountupControl x:Name="timer" Width="600" Height="600" Margin="0,0,0,20" Seconds="1" ></controls:CountupControl>-->
+            <controls:CountupControl x:Name="timer" Width="600" Height="600" Margin="0,0,0,100"   Seconds="1" ></controls:CountupControl>
+            <!--<toolkit:CountdownControl x:Name="timer" Width="600" Height="600" Seconds="30"></toolkit:CountdownControl>-->
+
+            <!--StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,50">
+                <Button Grid.Row="1" Height="150" Width="290" FontSize="48" FontWeight="Light"  Margin="0,6,6,0" x:Name="btnPlaySound" Click="btnPlaySound_Click"
+                                 DataContext="{Binding Events}"  Content="Play Sound"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                            />
+                
+                
+                <Button Grid.Row="1" Grid.Column="1" Height="150" Width="290" FontSize="48" FontWeight="Light" x:Name="btnGuessSound" Click="btnGuessSound_Click"  Margin="6,6,0,0"
+                                 DataContext="{Binding Invoices}"  Content="Guess Sound"  
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                            />
+            </StackPanel>-->
+            
+            <TextBlock HorizontalAlignment="Center" FontSize="50" Opacity="0" Foreground="Red" Margin="0,40,0,0" x:Name="txtStatus" Text="Wrong, Please Try Again!">
+                <!--<TextBlock.Effect>
+                                <DropShadowEffect x:Name="glowScrollFarLeftLink" BlurRadius="300"
+									Color="LightBlue"
+									Opacity="0"
+									ShadowDepth="0"
+									Direction="0" />
+                </TextBlock.Effect>-->
+                
+                <TextBlock.Resources>
+                    <Storyboard x:Name="sbShowStatus" AutoReverse="True">
+                        <DoubleAnimation  From="0" To="1" Duration="0:10:0"  RepeatBehavior="Forever" Storyboard.TargetName="txtStatus" Storyboard.TargetProperty="(UIElement.Opacity)"></DoubleAnimation>
+                        <!--<DoubleAnimation  From="0" To="1" Duration="0:10:0"  RepeatBehavior="Forever" Storyboard.TargetName="txtStatus" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)"></DoubleAnimation>-->
+
+                        <!--<DoubleAnimation
+                                                            Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Storyboard.TargetName="grid"
+                                                            To="1" Duration="0:0:0.75" AutoReverse="True" RepeatBehavior="Forever"  />-->
+
+
+                        <!--	
+											<DoubleAnimation
+                                                            Storyboard.TargetName="glowTitle"
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            From="0" To="1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"  />
+											-->
+                        <!--
+											<DoubleAnimation Duration="3.0:0:0" From="1" To="1" AutoReverse="True" RepeatBehavior="Forever"  Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Storyboard.TargetName="grid">
+												<DoubleAnimation.EasingFunction>
+													<CubicEase EasingMode="EaseIn"/>
+												</DoubleAnimation.EasingFunction>
+											</DoubleAnimation>
+											-->
+                    </Storyboard>
+                </TextBlock.Resources>
+            </TextBlock>
+
+            <Editors:TextEdit x:Name="txtName" FontSize="28" Opacity="0" Background="Black" Foreground="WhiteSmoke" VerticalContentAlignment="Center"  NullText="Enter Your Name Here" Width="580" HorizontalAlignment="Center" Margin="0,40,0,0" >
+                <Editors:TextEdit.Resources>
+                    <Storyboard x:Name="sbShowNameBox" AutoReverse="True">
+                        <DoubleAnimation  From="0" To="1" Duration="1:00" Storyboard.TargetName="txtName" Storyboard.TargetProperty="Opacity"></DoubleAnimation>
+                    </Storyboard>
+                </Editors:TextEdit.Resources>
+                <Editors:TextEdit.Buttons>
+                    <Editors:ButtonInfo ButtonKind="Simple">
+                        <Editors:ButtonInfo.TemplateSimple>
+                            <DataTemplate>
+                                <!--<HyperlinkButton NavigateUri="http://www.devexpress.com" HorizontalAlignment="Stretch" Padding="12,1,12,1">www.devexpress.com</HyperlinkButton>-->
+
+                                <Button   FontSize="32" Background="Blue" Foreground="WhiteSmoke" FontWeight="Normal" x:Name="btnSubmitHighScore"  Click="btnSubmitHighScore_Click" Margin="0,0,0,0"
+                                 Content="Submit Score"   HorizontalAlignment="Right" VerticalAlignment="Center"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            </DataTemplate>
+                        </Editors:ButtonInfo.TemplateSimple>
+                    </Editors:ButtonInfo>
+                </Editors:TextEdit.Buttons>
+            </Editors:TextEdit>
+
+
+            <!--<Editors:TextEdit   NullText="Enter Your Guess Here" Width="580" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom"></Editors:TextEdit>-->
+
+            <!--<TextBox Visibility="Collapsed" KeyDown="TextBox_KeyDown_1" KeyUp="TextBox_KeyUp_1" Width="300"></TextBox>-->
+            
+            <Editors:TextEdit FontSize="28" Background="Black" Foreground="WhiteSmoke" VerticalContentAlignment="Center"  x:Name="txtGuess" KeyDown="txtGuess_KeyDown"   NullText="Enter Your Guess Here" Width="580" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom">
+                <Editors:TextEdit.Buttons>
+                    <Editors:ButtonInfo ButtonKind="Simple">
+                        <Editors:ButtonInfo.TemplateSimple>
+                            <DataTemplate>
+                                <!--<HyperlinkButton NavigateUri="http://www.devexpress.com" HorizontalAlignment="Stretch" Padding="12,1,12,1">www.devexpress.com</HyperlinkButton>-->
+
+                                <Button   FontSize="32" Background="Blue" Foreground="WhiteSmoke" FontWeight="Normal" x:Name="btnGuessSound" Click="btnGuessSound_Click"  Margin="0,0,0,0"
+                                 Content="Guess Sound"   HorizontalAlignment="Right" VerticalAlignment="Center"
+                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            </DataTemplate>
+                        </Editors:ButtonInfo.TemplateSimple>
+                    </Editors:ButtonInfo>
+                </Editors:TextEdit.Buttons>
+            </Editors:TextEdit>
+
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="10,0,0,10" HorizontalAlignment="Left">
+                <TextBlock Foreground="WhiteSmoke" FontSize="40" Text="Sound Played:"></TextBlock>
+                <TextBlock Foreground="WhiteSmoke" FontSize="40" Margin="10,0,0,0" Text="0" x:Name="txtSoundPlayed"></TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,10,10" HorizontalAlignment="Right">
+                <TextBlock Foreground="WhiteSmoke" FontSize="40" Text="Guesses:"></TextBlock>
+                <TextBlock Foreground="WhiteSmoke" FontSize="40" Margin="10,0,0,0" Text="0" x:Name="txtGuesses"></TextBlock>
+            </StackPanel>
+            <!--
+            <Path Data="M131.343,103.284 C295.522,254.03 -200,533.134 295.522,249.552" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="269.367" Margin="68.128,102.784,0,0" Stretch="Fill" Stroke="Black" UseLayoutRounding="False" VerticalAlignment="Top" Width="227.894"/>
+
+			<Path Data="100, 150, 200"/>
+            -->
+
+        </Layout:LayoutAwareDecorator>
+    </Layout:PageAdornerControl>
+</Layout:DXPage>

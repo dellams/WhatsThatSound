@@ -1,0 +1,29 @@
+﻿<UserControl
+    x:Class="WhatsThatSound.View.OverviewSnappedView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="768"
+    d:DesignWidth="320"
+    xmlns:Core="using:DevExpress.Core"
+    xmlns:Layout="using:DevExpress.UI.Xaml.Layout">
+
+    <UserControl.Resources>
+        <Core:ApplicationViewService x:Key="applicationViewService" />
+    </UserControl.Resources>
+    <Layout:Tile Margin="0,40"
+        Header="Details"
+        VerticalAlignment="Top"
+        Background="Gray"
+        HorizontalAlignment="Center"
+        Command="{Binding Path=TryUnsnapCommand, Source={StaticResource applicationViewService}}"
+        FontSize="30">
+        <TextBlock>
+            <Run Text="{Binding FirstName}"/>
+            <LineBreak/>
+            <Run Text="{Binding LastName}"/>
+        </TextBlock>
+    </Layout:Tile>
+</UserControl>
